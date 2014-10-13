@@ -1,6 +1,6 @@
 {
   "name": "mech-math",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Library of math mechanisms.",
   "main": "./dist/mech-math.js",
   "scripts": {

@@ -1,5 +1,5 @@
 // mech-math.js
-// version: 0.1.1
+// version: 0.1.2
 // author: Eric Hosick <erichosick@gmail.com> (http://www.erichosick.com/)
 // license: MIT
 (function() {
@@ -7,7 +7,7 @@
 var root = this; // Establish the root object: 'window' in the browser 'exports' on the server
 var previous = root.m; // Save the previous m
 var m = previous || {}; // New module or merge with previous
-m["version-math"] = '0.1.1'; // Current version updated by gulpfile.js build process
+m["version-math"] = '0.1.2'; // Current version updated by gulpfile.js build process
 
 // Export module for Node and the browser.
 if(typeof module !== 'undefined' && module.exports) {
@@ -49,8 +49,8 @@ function add(left,right) {
    return f;
 };
 AddF.prototype = Object.create(DualArgF.prototype, {
-   goNum: { get: function() { return (this._l.isMech ? this._l.goNum : this._l) + (this._r.isMech ? this._r.goNum : this._r); } },
-   goStr: { get: function() { return "(" + (this._l.isMech ? this._l.goStr : this._l) + " + " + (this._r.isMech ? this._r.goStr : this._r) + ")"; } },
+   goNum: { enumerable: false, get: function() { return (this._l.isMech ? this._l.goNum : this._l) + (this._r.isMech ? this._r.goNum : this._r); } },
+   goStr: { enumerable: false, get: function() { return "(" + (this._l.isMech ? this._l.goStr : this._l) + " + " + (this._r.isMech ? this._r.goStr : this._r) + ")"; } },
 });
 m.add = add;
 m.AddF = AddF;
@@ -62,8 +62,8 @@ function sub(left,right) {
    return f;
 };
 SubF.prototype = Object.create(DualArgF.prototype, {
-   goNum: { get: function() { return (this._l.isMech ? this._l.goNum : this._l) - (this._r.isMech ? this._r.goNum : this._r); } },
-   goStr: { get: function() { return "(" + (this._l.isMech ? this._l.goStr : this._l) + " - " + (this._r.isMech ? this._r.goStr : this._r) + ")"; } },
+   goNum: { enumerable: false, get: function() { return (this._l.isMech ? this._l.goNum : this._l) - (this._r.isMech ? this._r.goNum : this._r); } },
+   goStr: { enumerable: false, get: function() { return "(" + (this._l.isMech ? this._l.goStr : this._l) + " - " + (this._r.isMech ? this._r.goStr : this._r) + ")"; } },
 });
 m.sub = sub;
 m.SubF = SubF;
@@ -75,8 +75,8 @@ function mul(left,right) {
    return f;
 };
 MulF.prototype = Object.create(DualArgF.prototype, {
-   goNum: { get: function() { return (this._l.isMech ? this._l.goNum : this._l) * (this._r.isMech ? this._r.goNum : this._r); } },
-   goStr: { get: function() { return "(" + (this._l.isMech ? this._l.goStr : this._l) + " * " + (this._r.isMech ? this._r.goStr : this._r) + ")"; } },
+   goNum: { enumerable: false, get: function() { return (this._l.isMech ? this._l.goNum : this._l) * (this._r.isMech ? this._r.goNum : this._r); } },
+   goStr: { enumerable: false, get: function() { return "(" + (this._l.isMech ? this._l.goStr : this._l) + " * " + (this._r.isMech ? this._r.goStr : this._r) + ")"; } },
 });
 m.mul = mul;
 m.MulF = MulF;
@@ -88,10 +88,53 @@ function div(left,right) {
    return f;
 };
 DivF.prototype = Object.create(DualArgF.prototype, {
-   goNum: { get: function() { return (this._l.isMech ? this._l.goNum : this._l) / (this._r.isMech ? this._r.goNum : this._r); } },
-   goStr: { get: function() { return "(" + (this._l.isMech ? this._l.goStr : this._l) + " / " + (this._r.isMech ? this._r.goStr : this._r) + ")"; } },
+   goNum: { enumerable: false, get: function() { return (this._l.isMech ? this._l.goNum : this._l) / (this._r.isMech ? this._r.goNum : this._r); } },
+   goStr: { enumerable: false, get: function() { return "(" + (this._l.isMech ? this._l.goStr : this._l) + " / " + (this._r.isMech ? this._r.goStr : this._r) + ")"; } },
 });
 m.div = div;
 m.DivF = DivF;
+function ModulusF(){};
+function modulus(left,right) {
+   var f = Object.create(ModulusF.prototype);
+   f.l = left;
+   f.r = right;
+   return f;
+};
+ModulusF.prototype = Object.create(DualArgF.prototype, {
+   goNum: { enumerable: false, get: function() { return (this._l.isMech ? this._l.goNum : this._l) % (this._r.isMech ? this._r.goNum : this._r); } },
+   goStr: { enumerable: false, get: function() { return "(" + (this._l.isMech ? this._l.goStr : this._l) + " % " + (this._r.isMech ? this._r.goStr : this._r) + ")"; } },
+});
+m.modulus = modulus;
+m.ModulusF = ModulusF;
+function AddSF(){};
+function addS(left,right) {
+   var f = Object.create(AddSF.prototype);
+   f.l = left;
+   f.r = right;
+   return f;
+};
+AddSF.prototype = Object.create(DualArgF.prototype, {
+   isMech: { get: function() { return true; }},
+   isNull: { get: function() { return false; }},
+   isPrim: { get: function() { return false; }},
+   l: {
+      get: function() { return this._l; },
+      set: function(d) { this._l = ((null === d) || (undefined === d)) ? "" : d; }
+   },
+   r: {
+      get: function() { return this._r; },
+      set: function(d) { this._r = ((null === d) || (undefined === d)) ? "" : d; }
+   },
+   go: { enumerable: false, get: function() { return this.goStr; } },
+   goStr: { enumerable: false, get: function() { return (this._l.isMech ? this._l.goStr : this._l) + (this._r.isMech ? this._r.goStr : this._r); } },
+   goArr: { enumerable: false, get: function() { return [this.goStr]; } },
+   goBool: { enumerable: false, get: function() {
+      var r = this.goStr;
+      return (("" !== r) && (0 !== r)); }
+   }
+
+});
+m.addS = addS;
+m.AddSF = AddSF;
 
 }.call(this));

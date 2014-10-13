@@ -14,20 +14,13 @@ var transform = require('vinyl-transform');
 
 source = [
    'src/util/header.js',
-   'src/isUsable.js',
-   'src/mech.js',
-   'src/num.js',
-   'src/numM.js',
-   'src/str.js',
-   'src/strM.js',
-   'src/propGet.js',
-   'src/propSet.js',
-   'src/writeLn.js',
    'src/dualArg.js',
    'src/add.js',
    'src/sub.js',
    'src/mul.js',
    'src/div.js',
+   'src/modulus.js',
+   'src/addS.js',
    'src/util/footer.js'
 ];
 

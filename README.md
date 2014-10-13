@@ -21,10 +21,20 @@ See [Mechanisms Home][mech-home-link] for more information.
 ## Supported Mechanisms in this Library
 
 * dualArg - mechanism to support operations that require two arguments.
-* add - mechanism to add primitives and mechanisms.
-* sub - mechanism to subtract primitives and mechanisms.
-* mul - mechanism to multiply primitives and mechanisms.
-* div - mechanism to divide primitives and mechanisms.
+* add - mechanism to add primitives and mechanisms in the number domain. Same as + operator in Javascript for numerics.
+* addS - mechanism to add primitives and mechanisms in the string domain. Same as + operator in Javascript for strings.
+* sub - mechanism to subtract primitives and mechanisms. Same as - operator in Javascript.
+* mul - mechanism to multiply primitives and mechanisms. Same as * operator in Javascript.
+* div - mechanism to divide primitives and mechanisms. Same as / operator in Javascript.
+* modulus - mechanism to modulus primitives and mechanisms. Same as % operator in Javascript.
+
+### Arithmetic Operators
+
+The ++ and -- operator are currently not supported by mechanisms.
+
+### String Operators
+
+See addS to add strings.
 
 ## dualArg Mechanism
 
