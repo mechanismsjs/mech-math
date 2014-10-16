@@ -143,6 +143,24 @@ Will result in:
 
 We've added true to the emitArr so it repeats. We've limited the maximum number of elements in our map to 7.
 
+Let's repeat two sequences of different lengths 20 times:
+
+```javascript
+m.map(
+  m.add(
+    m.emitArr([0,2],true),
+    m.emitArr([1,3,5],true)
+   ),
+  20
+).go;
+```
+
+We can start to get cool patterns:
+
+```javascript
+[ 1, 5, 5, 3, 3, 7, 1, 5, 5, 3, 3, 7, 1, 5, 5, 3, 3, 7, 1, 5 ]
+```
+
 ## dualArg Mechanism
 
 Base mechanism for mechanisms that require two arguments (such as add, sub, mul, div, etc.).
