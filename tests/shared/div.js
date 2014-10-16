@@ -1,4 +1,4 @@
-describe("multiply mechanism - div", function () {
+describe("divide mechanism - div", function () {
 
    it ("should not wipeout Object prototype and be a mechanism", function() {
      var mech = m.div();
@@ -7,10 +7,8 @@ describe("multiply mechanism - div", function () {
    });
    
    it ("should have correct properties", function() {
-     var mech = m.div();
+     var mech = m.div(1,2);
      expect(mech.isMech).to.be.true;
-     expect(mech.isNull).to.be.false;
-     expect(mech.isPrim).to.be.false;
    
      expect(mech).to.have.property('l');
      expect(mech).to.have.property('_l'); // imagined privacy
@@ -22,13 +20,13 @@ describe("multiply mechanism - div", function () {
 
    it ("div() should have same behaivor as dualArg()", function() {
       var mech = m.div();
-      expect(mech.l).to.eql(NaN);
-      expect(mech.r).to.eql(NaN);
-
-      expect(mech.go).to.eql(NaN);
-      expect(mech.goNum).to.eql(NaN);
-      expect(mech.goStr).to.equal("(NaN / NaN)");
-      expect(mech.goArr[0]).to.eql(NaN);
+      expect(mech.l).to.eql(undefined);
+      expect(mech.r).to.eql(undefined);
+         
+      expect(mech.go).to.eql(undefined);
+      expect(mech.goNum).to.eql(undefined);
+      expect(mech.goStr).to.equal("(undefined / undefined)");
+      expect(mech.goArr[0]).to.eql(undefined);
       expect(mech.goArr).to.have.length(1);
       expect(mech.goBool).to.be.false;
    });
@@ -48,26 +46,26 @@ describe("multiply mechanism - div", function () {
 
    it ("should div(null,null) correctly", function() {
       var mech = m.div(null,null);
-      expect(mech.l).to.eql(NaN);
-      expect(mech.r).to.eql(NaN);
-
-      expect(mech.go).to.eql(NaN);
-      expect(mech.goNum).to.eql(NaN);
-      expect(mech.goStr).to.equal("(NaN / NaN)");
-      expect(mech.goArr[0]).to.eql(NaN);
+      expect(mech.l).to.eql(undefined);
+      expect(mech.r).to.eql(undefined);
+         
+      expect(mech.go).to.eql(undefined);
+      expect(mech.goNum).to.eql(undefined);
+      expect(mech.goStr).to.equal("(undefined / undefined)");
+      expect(mech.goArr[0]).to.eql(undefined);
       expect(mech.goArr).to.have.length(1);
       expect(mech.goBool).to.be.false;
    });
 
    it ("should div(undefined,undefined) correctly", function() {
       var mech = m.div(undefined,undefined);
-      expect(mech.l).to.eql(NaN);
-      expect(mech.r).to.eql(NaN);
-
-      expect(mech.go).to.eql(NaN);
-      expect(mech.goNum).to.eql(NaN);
-      expect(mech.goStr).to.equal("(NaN / NaN)");
-      expect(mech.goArr[0]).to.eql(NaN);
+      expect(mech.l).to.eql(undefined);
+      expect(mech.r).to.eql(undefined);
+         
+      expect(mech.go).to.eql(undefined);
+      expect(mech.goNum).to.eql(undefined);
+      expect(mech.goStr).to.equal("(undefined / undefined)");
+      expect(mech.goArr[0]).to.eql(undefined);
       expect(mech.goArr).to.have.length(1);
       expect(mech.goBool).to.be.false;
    });      
@@ -173,5 +171,25 @@ describe("multiply mechanism - div", function () {
       expect(mech.goArr).to.have.length(1);
       expect(mech.goBool).to.be.false;
    });
+
+   it ("should play nicely with emitters", function() {
+   
+      var mech2 = m.div(m.emitArr([9,3,6]),3);
+      expect(mech2.go).to.equal(3);
+      expect(mech2.goNum).to.equal(1);
+      expect(mech2.goNum).to.equal(2);
+      expect(mech2.goNum).to.eql(undefined);
+      
+      // var mech2 = m.add(5,m.emitArr([3,4,5]));
+      // var first = mech2.go;
+      // var second = mech2.goNum;
+      // var third = mech2.goStr;
+      // var fourth = mech2.go;
+      // expect(first).to.equal(8);
+      // expect(second).to.equal(9);
+      // expect(third).to.equal('(5 + 5)');
+      // expect(fourth).to.eql(undefined);
+   });
+
 
 });

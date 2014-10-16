@@ -7,10 +7,8 @@ describe("modulusition mechanism - modulus", function () {
    });
 
    it ("should have correct properties", function() {
-     var mech = m.modulus();
+     var mech = m.modulus(1,2);
      expect(mech.isMech).to.be.true;
-     expect(mech.isNull).to.be.false;
-     expect(mech.isPrim).to.be.false;
        
      expect(mech).to.have.property('l');
      expect(mech).to.have.property('_l'); // imagined privacy
@@ -19,15 +17,15 @@ describe("modulusition mechanism - modulus", function () {
      expect(mech).to.have.property('_r'); // imagined privacy
    });
 
-   it ("modulus() should have same behaivor as dualArg() and equal NaN", function() {
+   it ("modulus() should have same behaivor as dualArg()", function() {
       var mech = m.modulus();
-      expect(mech.l).to.eql(NaN);
-      expect(mech.r).to.eql(NaN);
-   
-      expect(mech.go).to.eql(NaN);
-      expect(mech.goNum).to.eql(NaN);
-      expect(mech.goStr).to.equal("(NaN % NaN)");
-      expect(mech.goArr[0]).to.eql(NaN);
+      expect(mech.l).to.eql(undefined);
+      expect(mech.r).to.eql(undefined);
+         
+      expect(mech.go).to.eql(undefined);
+      expect(mech.goNum).to.eql(undefined);
+      expect(mech.goStr).to.equal("(undefined % undefined)");
+      expect(mech.goArr[0]).to.eql(undefined);
       expect(mech.goArr).to.have.length(1);
       expect(mech.goBool).to.be.false;
    });
@@ -47,26 +45,26 @@ describe("modulusition mechanism - modulus", function () {
    
    it ("should modulus(null,null) correctly", function() {
       var mech = m.modulus(null,null);
-      expect(mech.l).to.eql(NaN);
-      expect(mech.r).to.eql(NaN);
-   
-      expect(mech.go).to.eql(NaN);
-      expect(mech.goNum).to.eql(NaN);
-      expect(mech.goStr).to.equal("(NaN % NaN)");
-      expect(mech.goArr[0]).to.eql(NaN);
+      expect(mech.l).to.eql(undefined);
+      expect(mech.r).to.eql(undefined);
+         
+      expect(mech.go).to.eql(undefined);
+      expect(mech.goNum).to.eql(undefined);
+      expect(mech.goStr).to.equal("(undefined % undefined)");
+      expect(mech.goArr[0]).to.eql(undefined);
       expect(mech.goArr).to.have.length(1);
       expect(mech.goBool).to.be.false;
    });
    
    it ("should modulus(undefined,undefined) correctly", function() {
       var mech = m.modulus(undefined,undefined);
-      expect(mech.l).to.eql(NaN);
-      expect(mech.r).to.eql(NaN);
-   
-      expect(mech.go).to.eql(NaN);
-      expect(mech.goNum).to.eql(NaN);
-      expect(mech.goStr).to.equal("(NaN % NaN)");
-      expect(mech.goArr[0]).to.eql(NaN);
+      expect(mech.l).to.eql(undefined);
+      expect(mech.r).to.eql(undefined);
+         
+      expect(mech.go).to.eql(undefined);
+      expect(mech.goNum).to.eql(undefined);
+      expect(mech.goStr).to.equal("(undefined % undefined)");
+      expect(mech.goArr[0]).to.eql(undefined);
       expect(mech.goArr).to.have.length(1);
       expect(mech.goBool).to.be.false;
    });      
@@ -171,6 +169,14 @@ describe("modulusition mechanism - modulus", function () {
       expect(mech.goArr[0]).to.eql(NaN);
       expect(mech.goArr).to.have.length(1);
       expect(mech.goBool).to.be.false;
-   });      
+   });
+   
+   it ("should play nicely with emitters", function() {
+      var mech2 = m.modulus(m.emitArr([9,2,8]),3);
+      expect(mech2.goNum).to.equal(0);
+      expect(mech2.goNum).to.equal(2);
+      expect(mech2.goNum).to.equal(2);
+      expect(mech2.goNum).to.eql(undefined);
+   });
 
 });

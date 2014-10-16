@@ -7,10 +7,8 @@ describe("multiply mechanism - mul", function () {
    });
 
    it ("should have correct properties", function() {
-     var mech = m.mul();
+     var mech = m.mul(1,2);
      expect(mech.isMech).to.be.true;
-     expect(mech.isNull).to.be.false;
-     expect(mech.isPrim).to.be.false;
    
      expect(mech).to.have.property('l');
      expect(mech).to.have.property('_l'); // imagined privacy
@@ -22,13 +20,13 @@ describe("multiply mechanism - mul", function () {
    
    it ("mul() should have same behaivor as dualArg()", function() {
       var mech = m.mul();
-      expect(mech.l).to.eql(NaN);
-      expect(mech.r).to.eql(NaN);
+      expect(mech.l).to.eql(undefined);
+      expect(mech.r).to.eql(undefined);
          
-      expect(mech.go).to.eql(NaN);
-      expect(mech.goNum).to.eql(NaN);
-      expect(mech.goStr).to.equal("(NaN * NaN)");
-      expect(mech.goArr[0]).to.eql(NaN);
+      expect(mech.go).to.eql(undefined);
+      expect(mech.goNum).to.eql(undefined);
+      expect(mech.goStr).to.equal("(undefined * undefined)");
+      expect(mech.goArr[0]).to.eql(undefined);
       expect(mech.goArr).to.have.length(1);
       expect(mech.goBool).to.be.false;
    });
@@ -48,26 +46,26 @@ describe("multiply mechanism - mul", function () {
    
    it ("should mul(null,null) correctly", function() {
       var mech = m.mul(null,null);
-      expect(mech.l).to.eql(NaN);
-      expect(mech.r).to.eql(NaN);
-   
-      expect(mech.go).to.eql(NaN);
-      expect(mech.goNum).to.eql(NaN);
-      expect(mech.goStr).to.equal("(NaN * NaN)");
-      expect(mech.goArr[0]).to.eql(NaN);
+      expect(mech.l).to.eql(undefined);
+      expect(mech.r).to.eql(undefined);
+         
+      expect(mech.go).to.eql(undefined);
+      expect(mech.goNum).to.eql(undefined);
+      expect(mech.goStr).to.equal("(undefined * undefined)");
+      expect(mech.goArr[0]).to.eql(undefined);
       expect(mech.goArr).to.have.length(1);
       expect(mech.goBool).to.be.false;
    });
    
    it ("should mul(undefined,undefined) correctly", function() {
       var mech = m.mul(undefined,undefined);
-      expect(mech.l).to.eql(NaN);
-      expect(mech.r).to.eql(NaN);
-   
-      expect(mech.go).to.eql(NaN);
-      expect(mech.goNum).to.eql(NaN);
-      expect(mech.goStr).to.equal("(NaN * NaN)");
-      expect(mech.goArr[0]).to.eql(NaN);
+      expect(mech.l).to.eql(undefined);
+      expect(mech.r).to.eql(undefined);
+         
+      expect(mech.go).to.eql(undefined);
+      expect(mech.goNum).to.eql(undefined);
+      expect(mech.goStr).to.equal("(undefined * undefined)");
+      expect(mech.goArr[0]).to.eql(undefined);
       expect(mech.goArr).to.have.length(1);
       expect(mech.goBool).to.be.false;
    });
@@ -173,5 +171,14 @@ describe("multiply mechanism - mul", function () {
       expect(mech.goArr).to.have.length(1);
       expect(mech.goBool).to.be.false;
    });      
+
+   it ("should play nicely with emitters", function() {
+      var mech = m.mul(2, m.emitArr([9,2,8]));
+      expect(mech.goNum).to.equal(18);
+      expect(mech.goNum).to.equal(4);
+      expect(mech.goNum).to.equal(16);
+      expect(mech.goNum).to.eql(undefined);
+   });
+
 
 });

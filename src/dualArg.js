@@ -1,22 +1,28 @@
 function DualArgF(){};
 function dualArg(left,right) {
    var f = Object.create(DualArgF.prototype);
-   f.l = left;
-   f.r = right;
+   f._l = ((null === left) || (undefined === left)) ? undefined : left;
+   f._r = ((null === right) || (undefined === right)) ? undefined : right;
    return f;
 };
 DualArgF.prototype = Object.create(Object.prototype, {
    isMech: { get: function() { return true; }},
-   isNull: { get: function() { return false; }},
-   isPrim: { get: function() { return false; }},
-   l: {
-      get: function() { return this._l; },
-      set: function(d) { this._l = ((null === d) || (undefined === d)) ? NaN : d; }
-   },
-   r: {
-      get: function() { return this._r; },
-      set: function(d) { this._r = ((null === d) || (undefined === d)) ? NaN : d; }
-   },
+   l: { get: function() { return this._l; }},
+   ls: { get: function() {
+      if (undefined === this._l) {
+         return 'undefined';
+      } else {
+         return this._l.isMech ? this._l.goStr : this._l.toString();
+      }
+   }},
+   r: { get: function() { return this._r; } },
+   rs: { get: function() {
+      if (undefined === this._r) {
+         return 'undefined';
+      } else {
+         return this._r.isMech ? this._r.goStr : this._r.toString();
+      }
+   }},
    go: { enumerable: false, get: function() { return this.goNum; } },
    goArr: { enumerable: false, get: function() { return [this.goNum]; } },
    goBool: { enumerable: false, get: function() { return (this.goNum > 0); } }

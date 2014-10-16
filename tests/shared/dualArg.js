@@ -6,10 +6,8 @@ describe("dual argument mechanism - dualArg", function() {
    });
    
    it ("should have correct properties", function() {
-     var mech = m.dualArg();
+     var mech = m.dualArg(1,2);
      expect(mech.isMech).to.be.true;
-     expect(mech.isNull).to.be.false;
-     expect(mech.isPrim).to.be.false;
              
      expect(mech).to.have.property('l');
      expect(mech).to.have.property('_l'); // imagined privacy
@@ -19,53 +17,60 @@ describe("dual argument mechanism - dualArg", function() {
   
    });
   
-   it ("dualArg() should be NaN", function() {
+   it ("dualArg() should be undefined", function() {
        var mech = m.dualArg();
-       expect(mech.l).to.eql(NaN);
-       expect(mech.r).to.eql(NaN);
+       expect(mech.l).to.eql(undefined);
+       expect(mech.r).to.eql(undefined);
+       expect(mech.ls).to.equal("undefined");
+       expect(mech.rs).to.equal("undefined");
+       
     });
     
   
-   it ("dualArg(undefined) should be NaN", function() {
+   it ("dualArg(undefined) should be undefined", function() {
       var mech = m.dualArg(undefined);
-      expect(mech.l).to.eql(NaN);
-      expect(mech.r).to.eql(NaN);
+      expect(mech.l).to.eql(undefined);
+      expect(mech.r).to.eql(undefined);
    });
    
-   it ("dualArg(NaN) should be NaN", function() {
+   it ("dualArg(NaN) should be NaN and undefined", function() {
       var mech = m.dualArg(NaN);
       expect(mech.l).to.eql(NaN);
-      expect(mech.r).to.eql(NaN);
+      expect(mech.r).to.eql(undefined);
    });
   
-  it ("dualArg(Infinity) should be Infinity and NaN", function() {
+  it ("dualArg(Infinity) should be Infinity and undefined", function() {
      var mech = m.dualArg(Infinity);
      expect(mech.l).to.equal(Infinity);
-     expect(mech.r).to.eql(NaN);
+     expect(mech.r).to.eql(undefined);
   });
    
-   it ("dualArg(5) should be 5 and NaN", function() {
+   it ("dualArg(5) should be 5 and undefined", function() {
       var mech = m.dualArg(5);
       expect(mech.l).to.equal(5);
-      expect(mech.r).to.eql(NaN);
+      expect(mech.r).to.eql(undefined);
    });
   
-   it ("dualArg(0) should be 0 and NaN", function() {
+   it ("dualArg(0) should be 0 and undefined", function() {
       var mech = m.dualArg(0);
       expect(mech.l).to.equal(0);
-      expect(mech.r).to.eql(NaN);
+      expect(mech.r).to.eql(undefined);
    });
   
    it ("dualArg(1,2) should be 1 and 2", function() {
       var mech = m.dualArg(1,2);
       expect(mech.l).to.equal(1);
       expect(mech.r).to.equal(2);
+      expect(mech.ls).to.equal("1");
+      expect(mech.rs).to.equal("2");
    });
   
    it ("dualArg('1','2') should be 1 and 2", function() {
       var mech = m.dualArg("1","2");
       expect(mech.l).to.eql("1");
       expect(mech.r).to.eql("2");
+      expect(mech.ls).to.equal("1");
+      expect(mech.rs).to.equal("2");
    });
   
    it ("dualArg(NaN,NaN) should be NaN and NaN", function() {
@@ -74,24 +79,22 @@ describe("dual argument mechanism - dualArg", function() {
       expect(mech.r).to.eql(NaN);
    });
   
-   it ("dualArg(null,null) should be NaN and NaN", function() {
+   it ("dualArg(null,null) should be undefined", function() {
       var mech = m.dualArg(null,null);
-      expect(mech.l).to.eql(NaN);
-      expect(mech.r).to.eql(NaN);
+      expect(mech.l).to.eql(undefined);
+      expect(mech.r).to.eql(undefined);
    });
   
-   it ("dualArg(undefined,undefined) should be NaN and NaN", function() {
+   it ("dualArg(undefined,undefined) should be undefined", function() {
       var mech = m.dualArg(undefined,undefined);
-      expect(mech.l).to.eql(NaN);
-      expect(mech.r).to.eql(NaN);
+      expect(mech.l).to.eql(undefined);
+      expect(mech.r).to.eql(undefined);
    });
-
+  
    it ("dualArg(mech,mech) should be5 and 8", function() {
       var mech = m.dualArg(m.num(5),m.num(8));
       expect(mech.l.v).to.eql(5);
       expect(mech.r.v).to.eql(8);
    });
-
-
 
 });

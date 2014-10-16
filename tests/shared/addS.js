@@ -1,4 +1,4 @@
-describe("addSition mechanism - addS", function () {
+describe("addition string mechanism - addS", function () {
 
    it ("should not wipeout Object prototype and be a mechanism", function() {
      var mech = m.addS();
@@ -7,10 +7,8 @@ describe("addSition mechanism - addS", function () {
    });
 
    it ("should have correct properties", function() {
-     var mech = m.addS();
+     var mech = m.addS(1,2);
      expect(mech.isMech).to.be.true;
-     expect(mech.isNull).to.be.false;
-     expect(mech.isPrim).to.be.false;
        
      expect(mech).to.have.property('l');
      expect(mech).to.have.property('_l'); // imagined privacy
@@ -22,13 +20,13 @@ describe("addSition mechanism - addS", function () {
    
    it ("addS() should have string behavior?", function() {
       var mech = m.addS();
-      expect(mech.l).to.equal("");
-      expect(mech.r).to.equal("");
+      expect(mech.l).to.equal(undefined);
+      expect(mech.r).to.equal(undefined);
    
-      expect(mech.go).to.equal("");
+      expect(mech.go).to.eql(undefined);
       // expect(mech.goNum).to.eql(""); - NOT SUPPORTED
-      expect(mech.goStr).to.equal("");
-      expect(mech.goArr).to.contain("");
+      expect(mech.goStr).to.eql(undefined);
+      expect(mech.goArr[0]).to.eql(undefined);
       expect(mech.goArr).to.have.length(1);
       expect(mech.goBool).to.be.false;
    });
@@ -43,31 +41,31 @@ describe("addSition mechanism - addS", function () {
       expect(mech.goStr).to.eql(NaN);
       expect(mech.goArr[0]).to.eql(NaN);
       expect(mech.goArr).to.have.length(1);
-      expect(mech.goBool).to.be.true; // "", "false", 0 are considered false
+      expect(mech.goBool).to.be.true; // "", "false", 0, undefined are considered false
    });
    
    it ("should addS(null,null) correctly", function() {
       var mech = m.addS(null,null);
-      expect(mech.l).to.equal("");
-      expect(mech.r).to.equal("");
+      expect(mech.l).to.eql(undefined);
+      expect(mech.r).to.eql(undefined);
    
-      expect(mech.go).to.equal("");
+      expect(mech.go).to.eql(undefined);
       // expect(mech.goNum).to.eql(""); - NOT SUPPORTED
-      expect(mech.goStr).to.equal("");
-      expect(mech.goArr).to.contain("");
+      expect(mech.goStr).to.eql(undefined);
+      expect(mech.goArr[0]).to.eql(undefined);
       expect(mech.goArr).to.have.length(1);
       expect(mech.goBool).to.be.false;
    });
    
    it ("should addS(undefined,undefined) correctly", function() {
       var mech = m.addS(undefined,undefined);
-      expect(mech.l).to.equal("");
-      expect(mech.r).to.equal("");
+      expect(mech.l).to.eql(undefined);
+      expect(mech.r).to.eql(undefined);
    
-      expect(mech.go).to.equal("");
+      expect(mech.go).to.eql(undefined);
       // expect(mech.goNum).to.eql(""); - NOT SUPPORTED
-      expect(mech.goStr).to.equal("");
-      expect(mech.goArr).to.contain("");
+      expect(mech.goStr).to.eql(undefined);
+      expect(mech.goArr[0]).to.eql(undefined);
       expect(mech.goArr).to.have.length(1);
       expect(mech.goBool).to.be.false;
    });      
@@ -85,7 +83,7 @@ describe("addSition mechanism - addS", function () {
       expect(mech.goBool).to.be.false; // "", "false", 0 are considered false
    });
    
-
+   
    
    it ("should addS('Hay', ' you') correctly", function() {
       var mech = m.addS("Hay", " you");
@@ -98,7 +96,7 @@ describe("addSition mechanism - addS", function () {
       expect(mech.goArr).to.have.length(1);
       expect(mech.goBool).to.be.true;
    });
-
+   
    it ("should addS nested operations correctly", function() {
       var mech = m.addS("Hay", m.addS(" every", " one."));
       expect(mech.l).to.equal("Hay");
@@ -109,7 +107,7 @@ describe("addSition mechanism - addS", function () {
       expect(mech.goArr).to.contain("Hay every one.");
       expect(mech.goArr).to.have.length(1);
       expect(mech.goBool).to.be.true;
-   
+         
       var mech2 = m.addS( m.addS ("Every", " one"), ", hay!");
       expect(mech2.l.go).to.equal("Every one");
       expect(mech2.r).to.equal(", hay!");
@@ -119,6 +117,19 @@ describe("addSition mechanism - addS", function () {
       expect(mech2.goArr).to.contain("Every one, hay!");
       expect(mech2.goArr).to.have.length(1);
       expect(mech2.goBool).to.be.true;
+   });
+   
+   it ("should play nicely with emitters", function() {
+      var mech = m.addS(m.emitArr(["a","b","c"]), "e");
+      expect(mech.go).to.equal("ae");
+      expect(mech.go).to.equal("be");
+      expect(mech.go).to.equal("ce");
+      
+      var mech = m.addS(m.emitArr(["a","b","c"]), "e");
+      expect(mech.go).to.equal("ae");
+      expect(mech.go).to.equal("be");
+      expect(mech.go).to.equal("ce");
+      
    });
 
 });

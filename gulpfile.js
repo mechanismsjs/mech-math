@@ -21,6 +21,7 @@ source = [
    'src/div.js',
    'src/modulus.js',
    'src/addS.js',
+   'src/map.js',
    'src/util/footer.js'
 ];
 
