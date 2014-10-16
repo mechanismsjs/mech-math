@@ -50,7 +50,12 @@ Mechanisms use a "pull" approach to programming: an algorithm "pulls" the data i
 
 ```javascript
 // javascript mechanisms
-map(add(2, emitArr([1,2,3,4,5]))).go;
+m.map(
+  m.add(
+    2,
+    m.emitArr([1,2,3,4,5])
+  )
+).go;
 ```
 
 In his case, map returns an array by calling add until there is nothing left to emit.
@@ -61,13 +66,13 @@ The resulting array is:
 [3,4,5,6,7]
 ```
 
-Basically, our map simply calls the emitter until undefined is reached or we reach a maximum number of elements. We have a maximum number of elements because an emitter can emit an infinite range of values such as:
+Basically, a map mechanism simply calls the emitter until undefined is reached or the maximum number of elements has been reached. A maximum number of elements because an emitter can emit an infinite range of values such as:
 
 ```javascript
 m.emitRange(1,Infinity,23);
 ```
 
-How about two emitters of different lengths
+How about two emitters of different lengths:
 
 ```javascript
 m.map(
@@ -100,6 +105,24 @@ The resulting array is:
 ```javascript
 ["helloay", "goodbyeay", "beginay", "enday"]
 ```
+
+If we swap arguments we get:
+
+```javascript
+m.map(
+   m.addS(
+      "ay",
+      m.emitRange(["hello","goodbye","begin","end"])
+   )
+).go;
+```
+
+The resulting array is:
+
+```javascript
+["ayhello", "aygoodbye", "aybegin", "ayend"]
+```
+
 
 ## dualArg Mechanism
 
