@@ -66,7 +66,7 @@ The resulting array is:
 [3,4,5,6,7]
 ```
 
-Basically, a map mechanism simply calls the emitter until undefined is reached or the maximum number of elements has been reached. A maximum number of elements because an emitter can emit an infinite range of values such as:
+Basically, a map mechanism simply calls the emitter until undefined is reached or the maximum number of elements has been reached. A maximum number of elements is required because an emitter can emit an infinite range of values such as:
 
 ```javascript
 m.emitRange(1,Infinity,23);
@@ -94,7 +94,7 @@ We can emit strings:
 ```javascript
 m.map(
    m.addS(
-      m.emitRange(["hello","goodbye","begin","end"]),
+      m.emitArr(["hello","goodbye","begin","end"]),
       "ay"
    )
 ).go;
@@ -110,10 +110,10 @@ If we swap arguments we get:
 
 ```javascript
 m.map(
-   m.addS(
-      "ay",
-      m.emitRange(["hello","goodbye","begin","end"])
-   )
+  m.addS(
+    "ay",
+    m.emitArr(["hello","goodbye","begin","end"])
+  )
 ).go;
 ```
 
@@ -123,6 +123,25 @@ The resulting array is:
 ["ayhello", "aygoodbye", "aybegin", "ayend"]
 ```
 
+We can repeat a sequence:
+
+```javascript
+m.map(
+  m.mul(
+    2,
+    m.emitArr([2,4,6],true)
+   ),
+  7
+).go;
+```
+
+Will result in:
+
+```javascript
+[4,8,12,4,8,12,4]
+```
+
+We've added true to the emitArr so it repeats. We've limited the maximum number of elements in our map to 7.
 
 ## dualArg Mechanism
 
