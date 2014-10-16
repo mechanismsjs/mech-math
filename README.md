@@ -8,13 +8,7 @@
 
 Mechanisms are plugins for open source.
 
-See [Mechanisms Home][mech-home-link] for more information.
-
-* [mech-core][mech-core-link] - Core mechanisms.
-* [mech-math][mech-math-link] - Math mechanisms. This project. 
-* [mech-web][mech-web-link] - Web centric DOM mechanisms.
-* [mech-guid][mech-guid-link] - Guid mechanisms.
-* [mech-library][mech-library-link] - Clone and start making your own mechanism libraries.
+See [Mechanisms Home][mech-home-link] for more information and other libraries.
 
 # Documentation
 
@@ -37,15 +31,85 @@ The ++ and -- operator are currently not supported by mechanisms.
 
 See addS to add strings.
 
+## Map Mechanism
+
+Traditionally, mapping in javascript is done as follows:
+
+```javascript
+
+// javascript traditional
+[1,2,3,4,5].map(
+   function(n) {
+     return n + 2;
+ });
+```
+
+This is the "push-pull" approach to programming: we "push" data into the algorithm and pull a result.
+
+Mechanisms use a "pull" approach to programming: an algorithm "pulls" the data into itself. Let's see what that looks like:
+
+```javascript
+// javascript mechanisms
+map(add(2, emitArr([1,2,3,4,5]))).go;
+```
+
+In his case, map returns an array by calling add until there is nothing left to emit.
+
+The resulting array is:
+
+```javascript
+[3,4,5,6,7]
+```
+
+Basically, our map simply calls the emitter until undefined is reached or we reach a maximum number of elements. We have a maximum number of elements because an emitter can emit an infinite range of values such as:
+
+```javascript
+m.emitRange(1,Infinity,23);
+```
+
+How about two emitters of different lengths
+
+```javascript
+m.map(
+   m.add(
+      m.emitRange(1,4,1),
+      m.emitArr([1,2,3,4,5])
+   )
+).go;
+```
+
+The resulting array is:
+
+```javascript
+[2,4,6,8]
+```
+
+We can emit strings:
+
+```javascript
+m.map(
+   m.addS(
+      m.emitRange(["hello","goodbye","begin","end"]),
+      "ay"
+   )
+).go;
+```
+
+The resulting array is:
+
+```javascript
+["helloay", "goodbyeay", "beginay", "enday"]
+```
+
 ## dualArg Mechanism
 
 Base mechanism for mechanisms that require two arguments (such as add, sub, mul, div, etc.).
 
 Provides a l (left) and r (right) argument.
 
-## Add, sub, mul and div
+## Add, sub, mul, div and modulus
 
-add, sub, mul and div will run the appropriate operation on the two arguments provided.
+add, sub, mul, div and modulus will run the appropriate operation on the two arguments provided.
 
 l,r (left and right) can be:
 
@@ -90,79 +154,6 @@ would output:
 
     2
     
-    
-## Map
-
-Traditionally, mapping in javascript is done as follows:
-
-```javascript
-
-// javascript traditional
-[1,2,3,4,5].map(
-   function(n) {
-     return n + 2;
- });
-```
-
-This is the "push-pull" approach to programming: we "push" data into the algorithm and pull a result.
-
-Mechanisms use a "pull" approach to programming: an algorithm "pulls" the data into itself. Let's see what that looks like:
-
-```javascript
-// javascript mechanisms
-m.map(
-  m.add(2, m.emitArr([1,2,3,4,5]))
- ).go;
-```
-
-In his case, map returns an array by calling add until there is nothing left to emit.
-
-The resulting array is:
-
-```javascript
-[3,4,5,6,7]
-```
-
-Basically, our map simply calls the emitter until undefined is reached or we reach a maximum number of elements. We have a maximum number of elements because an emitter can emit an infinite range of values such as:
-
-```javascript
-m.emitRange(1,Infinity,23);
-```
-
-How about two emitters of different lengths
-
-```javascript
-m.map(
-   m.add(
-      m.emitRange(1,4,1),
-      m.emitArr([1,2,3,4,5])
-   )
-).go;
-```
-
-The resulting array is:
-
-```javascript
-[2,4,6,8]
-```
-
-The algorithm can use strings:
-
-```javascript
-m.map(
-   m.addS(
-      m.emitRange(["hello","goodbye","begin","end"]),
-      "ay"
-   )
-).go;
-```
-
-The resulting array is:
-
-```javascript
-["helloay","goodbyeay","beginay","enday"]
-```
-
 ## Using In Your Projects
 
 Change directory to your node project.
