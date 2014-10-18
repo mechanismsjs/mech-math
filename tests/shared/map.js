@@ -118,5 +118,15 @@ describe("mapping mechanism - map", function () {
       expect(mech.go[2]).to.equal(17);
    });
    
+   it ("should allow a mechanism as a max", function(){
+      var mech = m.map(m.emitFromRange(1,Infinity,45959532),m.num(5));
+      expect(mech.go).to.have.length(5);
+   });
+   
+   it ("should not hang on an invalid mechanism result", function(){
+      var mech = m.map(m.emitFromRange(1,Infinity,45959532),m.num(undefined));
+      expect(mech.go).to.have.length(0);
+   });
+   
 
 });

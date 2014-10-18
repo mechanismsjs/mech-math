@@ -1,5 +1,5 @@
 // mech-math.js
-// version: 0.1.5
+// version: 0.1.6
 // author: Eric Hosick <erichosick@gmail.com> (http://www.erichosick.com/)
 // license: MIT
 (function() {
@@ -8,7 +8,7 @@
 var root = this; // window (browser) or exports (server)
 var m = root.m || {}; // merge with previous or new module
 m._ = m._ || {}; // merge with pervious or new sub-module
-m._["version-math"] = '0.1.5'; // version set through gulp build
+m._["version-math"] = '0.1.6'; // version set through gulp build
 
 // export module for node or the browser
 if(typeof module !== 'undefined' && module.exports) {
@@ -178,11 +178,11 @@ AddSF.prototype = Object.create(DualArgF.prototype, {
 m.addS = addS;
 m._.AddSF = AddSF;
 function MapF(){};
-function map(algo,fixed) {
+function map(algo,max) {
    var f = Object.create(MapF.prototype);
    f._a = algo;
    f._cache = null;
-   f._fixed = ((null == fixed) || (undefined == fixed)) ? 1000 : fixed;
+   f._max = ((null == max) || (undefined == max)) ? 1000 : max;
    return f;
 };
 MapF.prototype = Object.create(Object.prototype, {
@@ -191,10 +191,11 @@ MapF.prototype = Object.create(Object.prototype, {
       if ( null === this._cache) {
          var algo = this._a;
          var isMechanism = algo.isMech;
+         var max = this._max.isMech ? this._max.go : this._max;
          this._cache = [];
          var cur = isMechanism ? algo.go : algo;
          var i = 0;
-         while ((undefined !== cur) && ( i < this._fixed)) {
+         while ((undefined !== cur) && ( i < max)) {
             this._cache[i++] = cur;
             cur = isMechanism ? algo.go : algo;
          }
