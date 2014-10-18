@@ -9,13 +9,15 @@ function map(algo,fixed) {
 MapF.prototype = Object.create(Object.prototype, {
    isMech: { get: function() { return true; }},
    go: { get: function() {
+      var algo = this._a;
+      var isMechanism = algo.isMech;
       if ( null === this._cache) {
          this._cache = [];
-         var cur = this._a.go;
+         var cur = isMechanism ? algo.go : algo;
          var i = 0;
          while ((undefined !== cur) && ( i < this._fixed)) {
             this._cache[i++] = cur;
-            cur = this._a.go;
+            cur = isMechanism ? algo.go : algo;
          }
       }
       return this._cache;

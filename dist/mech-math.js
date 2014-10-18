@@ -1,5 +1,5 @@
 // mech-math.js
-// version: 0.1.4
+// version: 0.1.5
 // author: Eric Hosick <erichosick@gmail.com> (http://www.erichosick.com/)
 // license: MIT
 (function() {
@@ -8,7 +8,7 @@
 var root = this; // window (browser) or exports (server)
 var m = root.m || {}; // merge with previous or new module
 m._ = m._ || {}; // merge with pervious or new sub-module
-m._["version-math"] = '0.1.4'; // version set through gulp build
+m._["version-math"] = '0.1.5'; // version set through gulp build
 
 // export module for node or the browser
 if(typeof module !== 'undefined' && module.exports) {
@@ -188,13 +188,15 @@ function map(algo,fixed) {
 MapF.prototype = Object.create(Object.prototype, {
    isMech: { get: function() { return true; }},
    go: { get: function() {
+      var algo = this._a;
+      var isMechanism = algo.isMech;
       if ( null === this._cache) {
          this._cache = [];
-         var cur = this._a.go;
+         var cur = isMechanism ? algo.go : algo;
          var i = 0;
          while ((undefined !== cur) && ( i < this._fixed)) {
             this._cache[i++] = cur;
-            cur = this._a.go;
+            cur = isMechanism ? algo.go : algo;
          }
       }
       return this._cache;
@@ -204,5 +206,38 @@ MapF.prototype = Object.create(Object.prototype, {
 });
 m.map = map;
 m._.MapF = MapF;
+function JoinF(){};
+function join(array,token) {
+   var f = Object.create(JoinF.prototype);
+   if (null === array || undefined === array) {
+   	throw new RangeError("array must be defined.");
+   }
+
+   if (!(array instanceof Array) && !array.isMech) {
+   	throw new RangeError("array must be an array type.");
+   }
+
+   f._arr = array;
+   f._token = token;
+   return f;
+};
+JoinF.prototype = Object.create(Object.prototype, {
+   isMech: { get: function() { return true; }},
+   go: { get: function() {
+      if (this._arr.isMech) {
+         var result = this._arr.go;
+         if (result instanceof Array) {
+            return result.join(this._token);
+         } else {
+   	      throw new RangeError("array must be an array type.");            
+         }
+      } else {
+         return this._arr.join(this._token);
+      }
+   }},
+   goArr: { get: function() { return this.go; }}
+});
+m.join = join;
+m._.JoinF = JoinF;
 
 }.call(this));

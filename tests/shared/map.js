@@ -3,7 +3,7 @@ describe("mapping mechanism - map", function () {
    it ("should not wipeout Object prototype and be a mechanism", function() {
      var mech = m.map();
      expect(mech).to.have.property('toString');
-     expect(m._.AddF).to.not.eql(undefined);
+     expect(m._.MapF).to.not.eql(undefined);
    });
    
    it ("should have correct properties", function() {
@@ -101,5 +101,22 @@ describe("mapping mechanism - map", function () {
       expect(mech3.go[2]).to.equal("ce");
 
    });
+   
+   it ("should map a literal", function(){
+      var mech = m.map("hello",5);
+      expect(mech.go).to.have.length(5);
+      expect(mech.go[0]).to.equal("hello");
+      expect(mech.go[1]).to.equal("hello");
+      expect(mech.go[2]).to.equal("hello");
+      expect(mech.go[3]).to.equal("hello");
+      expect(mech.go[4]).to.equal("hello");
+
+      var mech = m.map(17,3);
+      expect(mech.go).to.have.length(3);
+      expect(mech.go[0]).to.equal(17);
+      expect(mech.go[1]).to.equal(17);
+      expect(mech.go[2]).to.equal(17);
+   });
+   
 
 });

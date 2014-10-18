@@ -1,7 +1,7 @@
 {
   "name": "mech-math",
   "namesub": "math",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "Library of math mechanisms.",
   "main": "./dist/mech-math.js",
   "scripts": {
@@ -17,6 +17,7 @@
      "src/modulus.js",
      "src/addS.js",
      "src/map.js",
+     "src/join.js",
      "src/util/footer.js"
   ],
   "repository": {
