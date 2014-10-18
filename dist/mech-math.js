@@ -1,5 +1,5 @@
 // mech-math.js
-// version: 0.1.6
+// version: 0.1.7
 // author: Eric Hosick <erichosick@gmail.com> (http://www.erichosick.com/)
 // license: MIT
 (function() {
@@ -8,7 +8,7 @@
 var root = this; // window (browser) or exports (server)
 var m = root.m || {}; // merge with previous or new module
 m._ = m._ || {}; // merge with pervious or new sub-module
-m._["version-math"] = '0.1.6'; // version set through gulp build
+m._["version-math"] = '0.1.7'; // version set through gulp build
 
 // export module for node or the browser
 if(typeof module !== 'undefined' && module.exports) {
@@ -240,5 +240,51 @@ JoinF.prototype = Object.create(Object.prototype, {
 });
 m.join = join;
 m._.JoinF = JoinF;
+function MinF(){};
+function min() {
+   var f = Object.create(MinF.prototype);
+   f._args = arguments;
+   return f;
+};
+MinF.prototype = Object.create(Object.prototype, {
+   isMech: { get: function() { return true; }},
+   go: { get: function() {
+      var curMin = +Infinity;
+      var args = this._args;
+      for(var i=0; i < args.length; i++) {
+         var temp = args[i].isMech ? args[i].go : args[i];
+         if (temp < curMin) {
+            curMin = temp;
+         }
+      }
+      return curMin;
+   }},
+   goArr: { get: function() { return this.go; }}
+});
+m.min = min;
+m._.MinF = MinF;
+function MaxF(){};
+function max() {
+   var f = Object.create(MaxF.prototype);
+   f._args = arguments;
+   return f;
+};
+MaxF.prototype = Object.create(Object.prototype, {
+   isMech: { get: function() { return true; }},
+   go: { get: function() {
+      var curMin = -Infinity;
+      var args = this._args;
+      for(var i=0; i < args.length; i++) {
+         var temp = args[i].isMech ? args[i].go : args[i];
+         if (temp > curMin) {
+            curMin = temp;
+         }
+      }
+      return curMin;
+   }},
+   goArr: { get: function() { return this.go; }}
+});
+m.max = max;
+m._.MaxF = MaxF;
 
 }.call(this));
