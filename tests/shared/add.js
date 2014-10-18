@@ -3,7 +3,7 @@ describe("addition mechanism - add", function () {
    it ("should not wipeout Object prototype and be a mechanism", function() {
       var mech = m.add();
       expect(mech).to.have.property('toString');
-      expect(m.AddF).to.not.eql(undefined);
+      expect(m._.AddF).to.not.be.undefined;
     });
     
     it ("should have correct properties", function() {
@@ -173,13 +173,13 @@ describe("addition mechanism - add", function () {
     });
    
    it ("should play nicely with emitters", function() {
-      var mech2 = m.add(3,m.emitArr([9,2,8]));
+      var mech2 = m.add(3,m.emitFromArr([9,2,8]));
       expect(mech2.goNum).to.equal(12);
       expect(mech2.goNum).to.equal(5);
       expect(mech2.goNum).to.equal(11);
       expect(mech2.goNum).to.eql(undefined);
       
-      var mech2 = m.add(5,m.emitArr([3,4,5]));
+      var mech2 = m.add(5,m.emitFromArr([3,4,5]));
       var first = mech2.go;
       var second = mech2.goNum;
       var third = mech2.goStr;

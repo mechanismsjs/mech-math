@@ -28,4 +28,4 @@ DualArgF.prototype = Object.create(Object.prototype, {
    goBool: { enumerable: false, get: function() { return (this.goNum > 0); } }
 });
 m.dualArg = dualArg;
-m.DualArgF = DualArgF;
+m._.DualArgF = DualArgF;

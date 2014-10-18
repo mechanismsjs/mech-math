@@ -17,4 +17,4 @@ ModulusF.prototype = Object.create(DualArgF.prototype, {
    goStr: { enumerable: false, get: function() { return "(" + this.ls + " % " + this.rs + ")"; }}
 });
 m.modulus = modulus;
-m.ModulusF = ModulusF;
+m._.ModulusF = ModulusF;

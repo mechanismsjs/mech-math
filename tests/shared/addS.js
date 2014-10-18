@@ -3,7 +3,7 @@ describe("addition string mechanism - addS", function () {
    it ("should not wipeout Object prototype and be a mechanism", function() {
      var mech = m.addS();
      expect(mech).to.have.property('toString');
-     expect(m.AddSF).to.not.eql(undefined);
+     expect(m._.AddSF).to.not.eql(undefined);
    });
 
    it ("should have correct properties", function() {
@@ -120,12 +120,12 @@ describe("addition string mechanism - addS", function () {
    });
    
    it ("should play nicely with emitters", function() {
-      var mech = m.addS(m.emitArr(["a","b","c"]), "e");
+      var mech = m.addS(m.emitFromArr(["a","b","c"]), "e");
       expect(mech.go).to.equal("ae");
       expect(mech.go).to.equal("be");
       expect(mech.go).to.equal("ce");
       
-      var mech = m.addS(m.emitArr(["a","b","c"]), "e");
+      var mech = m.addS(m.emitFromArr(["a","b","c"]), "e");
       expect(mech.go).to.equal("ae");
       expect(mech.go).to.equal("be");
       expect(mech.go).to.equal("ce");

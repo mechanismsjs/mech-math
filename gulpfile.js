@@ -12,21 +12,10 @@ var mochaPhantom  = require('gulp-mocha-phantomjs')
 var browserify = require('browserify');
 var transform = require('vinyl-transform');
 
-source = [
-   'src/util/header.js',
-   'src/dualArg.js',
-   'src/add.js',
-   'src/sub.js',
-   'src/mul.js',
-   'src/div.js',
-   'src/modulus.js',
-   'src/addS.js',
-   'src/map.js',
-   'src/util/footer.js'
-];
-
+var source = pkg.source;
 var libName = pkg.name;
 var libFileName = pkg.name + '.js';
+var libSubName = pkg.namesub;
 var libMain = pkg.main;
 
 var banner = function(bundled) {
@@ -63,8 +52,13 @@ gulp.task('build', function(){
       .pipe(header(banner()))             // add header (your name, etc.)
       .pipe(replace('{{VERSION}}',        // update version tag in code
          pkg.version))
+      .pipe(replace('{{NAMESUB}}',        // update namesub tag in code
+         libSubName))
       .pipe(gulp.dest('dist'))            // dump pkg.name + '.js'
-      .pipe(rename(libName + '.min.js'))  // rename before browserify
+      .pipe(rename(libName + '.min.js'))  // rename for minify
+      .pipe(uglify())                     // minify it
+      .pipe(gulp.dest('dist'))            // dump pkg.name + '.min.js'
+      .pipe(rename(libName + '.min.brow.js'))  // rename before browserify
       .pipe(browserified)                 // setup for browser support
       .pipe(uglify())                     // minify it
       .pipe(gulp.dest('dist'))            // dump pkg.name + '.min.js'

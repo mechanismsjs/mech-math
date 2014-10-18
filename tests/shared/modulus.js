@@ -3,7 +3,7 @@ describe("modulusition mechanism - modulus", function () {
    it ("should not wipeout Object prototype and be a mechanism", function() {
      var mech = m.modulus();
      expect(mech).to.have.property('toString');
-     expect(m.ModulusF).to.be.not.eql(undefined);
+     expect(m._.ModulusF).to.be.not.eql(undefined);
    });
 
    it ("should have correct properties", function() {
@@ -172,7 +172,7 @@ describe("modulusition mechanism - modulus", function () {
    });
    
    it ("should play nicely with emitters", function() {
-      var mech2 = m.modulus(m.emitArr([9,2,8]),3);
+      var mech2 = m.modulus(m.emitFromArr([9,2,8]),3);
       expect(mech2.goNum).to.equal(0);
       expect(mech2.goNum).to.equal(2);
       expect(mech2.goNum).to.equal(2);

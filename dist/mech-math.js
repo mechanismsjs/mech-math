@@ -1,19 +1,20 @@
 // mech-math.js
-// version: 0.1.3
+// version: 0.1.4
 // author: Eric Hosick <erichosick@gmail.com> (http://www.erichosick.com/)
 // license: MIT
 (function() {
 "use strict";
-var root = this; // Establish the root object: 'window' in the browser 'exports' on the server
-var previous = root.m; // Save the previous m
-var m = previous || {}; // New module or merge with previous
-m["version-math"] = '0.1.3'; // Current version updated by gulpfile.js build process
 
-// Export module for Node and the browser.
+var root = this; // window (browser) or exports (server)
+var m = root.m || {}; // merge with previous or new module
+m._ = m._ || {}; // merge with pervious or new sub-module
+m._["version-math"] = '0.1.4'; // version set through gulp build
+
+// export module for node or the browser
 if(typeof module !== 'undefined' && module.exports) {
   module.exports = m;
 } else {
-  this.m = m;
+  root.m = m;
 }
 
 function DualArgF(){};
@@ -46,7 +47,7 @@ DualArgF.prototype = Object.create(Object.prototype, {
    goBool: { enumerable: false, get: function() { return (this.goNum > 0); } }
 });
 m.dualArg = dualArg;
-m.DualArgF = DualArgF;
+m._.DualArgF = DualArgF;
 function AddF(){};
 function add(left,right) {
    var f = Object.create(AddF.prototype);
@@ -66,7 +67,7 @@ AddF.prototype = Object.create(DualArgF.prototype, {
    goStr: { enumerable: false, get: function() { return "(" + this.ls + " + " + this.rs + ")"; }}
 });
 m.add = add;
-m.AddF = AddF;
+m._.AddF = AddF;
 function SubF(){};
 function sub(left,right) {
    var f = Object.create(SubF.prototype);
@@ -86,7 +87,7 @@ SubF.prototype = Object.create(DualArgF.prototype, {
    goStr: { enumerable: false, get: function() { return "(" + this.ls + " - " + this.rs + ")"; }}
 });
 m.sub = sub;
-m.SubF = SubF;
+m._.SubF = SubF;
 function MulF(){};
 function mul(left,right) {
    var f = Object.create(MulF.prototype);
@@ -106,7 +107,7 @@ MulF.prototype = Object.create(DualArgF.prototype, {
    goStr: { enumerable: false, get: function() { return "(" + this.ls + " * " + this.rs + ")"; }}
 });
 m.mul = mul;
-m.MulF = MulF;
+m._.MulF = MulF;
 function DivF(){};
 function div(left,right) {
    var f = Object.create(DivF.prototype);
@@ -126,7 +127,7 @@ DivF.prototype = Object.create(DualArgF.prototype, {
    goStr: { enumerable: false, get: function() { return "(" + this.ls + " / " + this.rs + ")"; }}
 });
 m.div = div;
-m.DivF = DivF;
+m._.DivF = DivF;
 function ModulusF(){};
 function modulus(left,right) {
    var f = Object.create(ModulusF.prototype);
@@ -146,7 +147,7 @@ ModulusF.prototype = Object.create(DualArgF.prototype, {
    goStr: { enumerable: false, get: function() { return "(" + this.ls + " % " + this.rs + ")"; }}
 });
 m.modulus = modulus;
-m.ModulusF = ModulusF;
+m._.ModulusF = ModulusF;
 function AddSF(){};
 function addS(left,right) {
    var f = Object.create(AddSF.prototype);
@@ -175,7 +176,7 @@ AddSF.prototype = Object.create(DualArgF.prototype, {
 
 });
 m.addS = addS;
-m.AddSF = AddSF;
+m._.AddSF = AddSF;
 function MapF(){};
 function map(algo,fixed) {
    var f = Object.create(MapF.prototype);
@@ -202,6 +203,6 @@ MapF.prototype = Object.create(Object.prototype, {
    goArr: { get: function() { return this.go; }}
 });
 m.map = map;
-m.MapF = MapF;
+m._.MapF = MapF;
 
 }.call(this));

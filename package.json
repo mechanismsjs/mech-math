@@ -1,11 +1,24 @@
 {
   "name": "mech-math",
-  "version": "0.1.3",
+  "namesub": "math",
+  "version": "0.1.4",
   "description": "Library of math mechanisms.",
   "main": "./dist/mech-math.js",
   "scripts": {
     "test": "gulp"
   },
+  "source": [
+     "src/util/header.js",
+     "src/dualArg.js",
+     "src/add.js",
+     "src/sub.js",
+     "src/mul.js",
+     "src/div.js",
+     "src/modulus.js",
+     "src/addS.js",
+     "src/map.js",
+     "src/util/footer.js"
+  ],
   "repository": {
     "type": "git",
     "url": "https://github.com/mechanismsjs/mech-math.git"

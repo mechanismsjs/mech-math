@@ -1,13 +1,14 @@
 (function() {
 "use strict";
-var root = this; // Establish the root object: 'window' in the browser 'exports' on the server
-var previous = root.m; // Save the previous m
-var m = previous || {}; // New module or merge with previous
-m["version-math"] = '{{VERSION}}'; // Current version updated by gulpfile.js build process
 
-// Export module for Node and the browser.
+var root = this; // window (browser) or exports (server)
+var m = root.m || {}; // merge with previous or new module
+m._ = m._ || {}; // merge with pervious or new sub-module
+m._["version-{{NAMESUB}}"] = '{{VERSION}}'; // version set through gulp build
+
+// export module for node or the browser
 if(typeof module !== 'undefined' && module.exports) {
   module.exports = m;
 } else {
-  this.m = m;
+  root.m = m;
 }

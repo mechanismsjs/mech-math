@@ -26,4 +26,4 @@ AddSF.prototype = Object.create(DualArgF.prototype, {
 
 });
 m.addS = addS;
-m.AddSF = AddSF;
+m._.AddSF = AddSF;

@@ -17,4 +17,4 @@ SubF.prototype = Object.create(DualArgF.prototype, {
    goStr: { enumerable: false, get: function() { return "(" + this.ls + " - " + this.rs + ")"; }}
 });
 m.sub = sub;
-m.SubF = SubF;
+m._.SubF = SubF;

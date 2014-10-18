@@ -17,4 +17,4 @@ MulF.prototype = Object.create(DualArgF.prototype, {
    goStr: { enumerable: false, get: function() { return "(" + this.ls + " * " + this.rs + ")"; }}
 });
 m.mul = mul;
-m.MulF = MulF;
+m._.MulF = MulF;

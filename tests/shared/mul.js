@@ -3,7 +3,7 @@ describe("multiply mechanism - mul", function () {
    it ("should not wipeout Object prototype and be a mechanism", function() {
      var mech = m.mul();
      expect(mech).to.have.property('toString');
-     expect(m.MulF).to.not.eql(undefined);
+     expect(m._.MulF).to.not.eql(undefined);
    });
 
    it ("should have correct properties", function() {
@@ -173,7 +173,7 @@ describe("multiply mechanism - mul", function () {
    });      
 
    it ("should play nicely with emitters", function() {
-      var mech = m.mul(2, m.emitArr([9,2,8]));
+      var mech = m.mul(2, m.emitFromArr([9,2,8]));
       expect(mech.goNum).to.equal(18);
       expect(mech.goNum).to.equal(4);
       expect(mech.goNum).to.equal(16);

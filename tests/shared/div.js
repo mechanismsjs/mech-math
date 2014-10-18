@@ -3,7 +3,7 @@ describe("divide mechanism - div", function () {
    it ("should not wipeout Object prototype and be a mechanism", function() {
      var mech = m.div();
      expect(mech).to.have.property('toString');
-     expect(m.DivF).to.not.eql(undefined);
+     expect(m._.DivF).to.not.eql(undefined);
    });
    
    it ("should have correct properties", function() {
@@ -174,21 +174,21 @@ describe("divide mechanism - div", function () {
 
    it ("should play nicely with emitters", function() {
    
-      var mech2 = m.div(m.emitArr([9,3,6]),3);
+      var mech2 = m.div(m.emitFromArr([9,3,6]),3);
       expect(mech2.go).to.equal(3);
       expect(mech2.goNum).to.equal(1);
       expect(mech2.goNum).to.equal(2);
       expect(mech2.goNum).to.eql(undefined);
       
-      // var mech2 = m.add(5,m.emitArr([3,4,5]));
-      // var first = mech2.go;
-      // var second = mech2.goNum;
-      // var third = mech2.goStr;
-      // var fourth = mech2.go;
-      // expect(first).to.equal(8);
-      // expect(second).to.equal(9);
-      // expect(third).to.equal('(5 + 5)');
-      // expect(fourth).to.eql(undefined);
+      var mech2 = m.add(5,m.emitFromArr([3,4,5]));
+      var first = mech2.go;
+      var second = mech2.goNum;
+      var third = mech2.goStr;
+      var fourth = mech2.go;
+      expect(first).to.equal(8);
+      expect(second).to.equal(9);
+      expect(third).to.equal('(5 + 5)');
+      expect(fourth).to.eql(undefined);
    });
 
 

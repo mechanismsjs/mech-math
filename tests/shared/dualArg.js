@@ -2,7 +2,7 @@ describe("dual argument mechanism - dualArg", function() {
    it ("should not wipeout Object prototype and be a mechanism", function() {
      var mech = m.dualArg();
      expect(mech).to.have.property('toString');
-     expect(m.DualArgF).to.not.eql(undefined);
+     expect(m._.DualArgF).to.not.eql(undefined);
    });
    
    it ("should have correct properties", function() {

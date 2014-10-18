@@ -17,4 +17,4 @@ AddF.prototype = Object.create(DualArgF.prototype, {
    goStr: { enumerable: false, get: function() { return "(" + this.ls + " + " + this.rs + ")"; }}
 });
 m.add = add;
-m.AddF = AddF;
+m._.AddF = AddF;

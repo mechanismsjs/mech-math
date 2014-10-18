@@ -3,7 +3,7 @@ describe("subtraction mechanism - sub", function () {
    it ("should not wipeout Object prototype and be a mechanism", function() {
      var mech = m.sub();
      expect(mech).to.have.property('toString');
-     expect(m.SubF).to.not.eql(undefined);
+     expect(m._.SubF).to.not.eql(undefined);
    });
 
    it ("should have correct properties", function() {
@@ -174,7 +174,7 @@ describe("subtraction mechanism - sub", function () {
    });      
 
    it ("should play nicely with emitters", function() {
-      var mech = m.sub(-2, m.emitArr([9,2,8]));
+      var mech = m.sub(-2, m.emitFromArr([9,2,8]));
       expect(mech.goNum).to.equal(-11);
       expect(mech.goNum).to.equal(-4);
       expect(mech.goNum).to.equal(-10);
