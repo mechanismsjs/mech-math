@@ -1,37 +1,42 @@
-[mech-library-link]: https://github.com/mechanismsjs/mech-library "Clone to easily create new mechanism libraries"
-[mech-web-link]: https://github.com/mechanismsjs/mech-web "Web centric DOM mechanisms"
-[mech-core-link]: https://github.com/mechanismsjs/mech-core "Core mechanisms"
-[mech-math-link]: https://github.com/mechanismsjs/mech-math "Math mechanisms"
-[mech-guid-link]: https://github.com/mechanismsjs/mech-guid "Mechanisms for guids"
-[mech-home-link]: https://github.com/mechanisms/mech "Home repository for mechanisms"
+[mech-library-link]: https://github.com/mechsjs/mech-library "Clone to easily create new mech libraries"
+[mech-web-link]: https://github.com/mechsjs/mech-web "Web centric DOM mechs"
+[mech-core-link]: https://github.com/mechsjs/mech-core "Core mechs"
+[mech-math-link]: https://github.com/mechsjs/mech-math "Math mechs"
+[mech-guid-link]: https://github.com/mechsjs/mech-guid "Mech for guids"
+[mech-home-link]: https://github.com/mechs/mech "Home repository for mechs"
 # mech-math
 
-Mechanisms are plugins for open source.
+Mech are plugins for open source.
 
-See [Mechanisms Home][mech-home-link] for more information and other libraries.
+See [Mechs Home][mech-home-link] for more information and other libraries.
 
 # Documentation
 
-## Supported Mechanisms in this Library
+## Supported Mechs in this Library
 
-* **dualArg** - mechanism to support operations that require two arguments.
+* **add** - add primitives and mechs in the number domain. Same as + operator in Javascript for numerics.
+* **addS** - add primitives and mechs in the string domain. Same as + operator in Javascript for strings.
+* **div** - divide primitives and mechs. Same as / operator in Javascript.
+* **dualArg** - mech to support operations that require two arguments.
+* **join** - Joins an array separated by an optional token. 
+* **loop** - mech that calls an algorithm a given max number of times or until the algorithm returns undefined.
 * **map** - "Calls a defined callback function (policy) on each element of an array, and returns an array that contains the results".
-* **add** - mechanism to add primitives and mechanisms in the number domain. Same as + operator in Javascript for numerics.
-* **addS** - mechanism to add primitives and mechanisms in the string domain. Same as + operator in Javascript for strings.
-* **sub** - mechanism to subtract primitives and mechanisms. Same as - operator in Javascript.
-* **mul** - mechanism to multiply primitives and mechanisms. Same as * operator in Javascript.
-* **div** - mechanism to divide primitives and mechanisms. Same as / operator in Javascript.
-* **modulus** - mechanism to modulus primitives and mechanisms. Same as % operator in Javascript.
+* **max** - mech to find maximum value in an array. Same as Math.max(a, b, ..., n) function in Javascript.
+* **min** - mech to find minimum value in an array. Same as Math.min(a, b, ..., n) function in Javascript.
+* **modulus** - mech to modulus primitives and mechs. Same as % operator in Javascript.
+* **mul** - mech to multiply primitives and mechs. Same as * operator in Javascript.
+* **sub** - mech to subtract primitives and mechs. Same as - operator in Javascript.
+* **pow** - raises a base to an exponent power. Same as Math.pow(base,power) function in Javascript.
 
 ### Arithmetic Operators
 
-The ++ and -- operator are currently not supported by mechanisms.
+The ++ and -- operator are currently not supported by mechs.
 
 ### String Operators
 
 See addS to add strings.
 
-## Map Mechanism
+## Map Mech
 
 Traditionally, mapping in javascript is done as follows:
 
@@ -46,10 +51,10 @@ Traditionally, mapping in javascript is done as follows:
 
 This is the "push-pull" approach to programming: we "push" data into the algorithm and pull a result.
 
-Mechanisms use a "pull" approach to programming: an algorithm "pulls" the data into itself. Let's see what that looks like:
+Mech use a "pull" approach to programming: an algorithm "pulls" the data into itself. Let's see what that looks like:
 
 ```javascript
-// javascript mechanisms
+// javascript mechs
 m.map(
   m.add(
     2,
@@ -66,7 +71,7 @@ The resulting array is:
 [3,4,5,6,7]
 ```
 
-Basically, a map mechanism simply calls the emitter until undefined is reached or the maximum number of elements has been reached. A maximum number of elements is required because an emitter can emit an infinite range of values such as:
+Basically, a map mech simply calls the emitter until undefined is reached or the maximum number of elements has been reached. A maximum number of elements is required because an emitter can emit an infinite range of values such as:
 
 ```javascript
 m.emitRange(1,Infinity,23);
@@ -161,9 +166,29 @@ We can start to get cool patterns:
 [ 1, 5, 5, 3, 3, 7, 1, 5, 5, 3, 3, 7, 1, 5, 5, 3, 3, 7, 1, 5 ]
 ```
 
-## dualArg Mechanism
+## loop 
 
-Base mechanism for mechanisms that require two arguments (such as add, sub, mul, div, etc.).
+Has the exact same behavior as map (it is the same code in fact).
+
+```javascript
+m.loop(
+  m.add(
+    m.emitArr([0,2],true),
+    m.emitArr([1,3,5],true)
+   ),
+  20
+).go;
+```
+
+We can start to get cool patterns:
+
+```javascript
+[ 1, 5, 5, 3, 3, 7, 1, 5, 5, 3, 3, 7, 1, 5, 5, 3, 3, 7, 1, 5 ]
+```
+
+## dualArg Mech
+
+Base mech for mechs that require two arguments (such as add, sub, mul, div, etc.).
 
 Provides a l (left) and r (right) argument.
 
@@ -176,7 +201,7 @@ l,r (left and right) can be:
 * a primitive value
   * "hello"
   * 0
-* another mechanism or policy
+* another mech or policy
   * m.str("hello")
   * m.num(3)
   * m.writeLn(5)
@@ -192,14 +217,14 @@ m.div(4, 2).go;
 m.mul(3, 1.5).go;
 ```
 
-Add, Sub, Mul and Div primitives and mechanisms:
+Add, Sub, Mul and Div primitives and mechs:
 
 ```javascript
 m.add(m.sub(4, 5), 2).go;
 m.add(m.div(4, 5), m.mul(5, 6)).go;
 ```
 
-Add (inject) any mechanism in the calculation. Let's write the result to the left side of the addition to the console.
+Add (inject) any mech in the calculation. Let's write the result to the left side of the addition to the console.
 
 ```javascript
 m.add(
@@ -214,6 +239,41 @@ would output:
 
     2
     
+## Min and Max Mechs
+
+Min and max return the minimum/maximum value from a parameter list. Here is an example:
+
+```javascript
+m.min(3,5,12,11).go; // 3
+m.max(3,5,12,11).go; // 11
+``` 
+
+We can also pass a mech as a parameter like:
+
+```javascript
+m.min(3,m.max(3,5,4),12,11).go; // still 3
+``` 
+
+We don't support min or max of arrays so we can't do this: yet. TODO: Implement this.
+
+
+```javascript
+// NOT SUPPORTED YET
+m.min([3, m.max(3,5,4), 12, 11]).go; // still 3
+``` 
+    
+## Join Mech
+
+Join lets you join an array. You can pass a mech to join but it must return an array.
+
+    
+```javascript
+m.join([3,4,5]).go; // 3,4,5
+m.join([3,4,5]," : ").go; // 3 : 4 : 5
+m.join(m.loop(m.emitFromArr([1,2,3,5]),4)," : ").go; // 3 : 4 : 5
+```
+    
+   
 ## Using In Your Projects
 
 Change directory to your node project.
@@ -224,7 +284,7 @@ Change directory to your node project.
 
 ## Get Involved!
 
-There are **a lot** of core mechanisms to add. Many of them can be created in a few hours including in-depth tests. Clone [mech-library][mech-library-link] to get started!
+There are **a lot** of core mechs to add. Many of them can be created in a few hours including in-depth tests. Clone [mech-library][mech-library-link] to get started!
 
 ### Setup
 

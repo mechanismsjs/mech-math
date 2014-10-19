@@ -8,6 +8,7 @@ function dualArg(left,right) {
 DualArgF.prototype = Object.create(Object.prototype, {
    isMech: { get: function() { return true; }},
    l: { get: function() { return this._l; }},
+   lv: { get: function() { return undefined === this._l ? undefined : this._l.isMech ? this._l.go : this._l; }},
    ls: { get: function() {
       if (undefined === this._l) {
          return 'undefined';
@@ -23,6 +24,7 @@ DualArgF.prototype = Object.create(Object.prototype, {
          return this._r.isMech ? this._r.goStr : this._r.toString();
       }
    }},
+   rv: { get: function() { return undefined === this._r ? undefined : this._r.isMech ? this._r.go : this._r; }},
    go: { enumerable: false, get: function() { return this.goNum; } },
    goArr: { enumerable: false, get: function() { return [this.goNum]; } },
    goBool: { enumerable: false, get: function() { return (this.goNum > 0); } }

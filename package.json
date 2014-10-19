@@ -1,8 +1,8 @@
 {
   "name": "mech-math",
   "namesub": "math",
-  "version": "0.1.7",
-  "description": "Library of math mechanisms.",
+  "version": "0.1.8",
+  "description": "Library of math mechs.",
   "main": "./dist/mech-math.js",
   "scripts": {
     "test": "gulp"
@@ -20,6 +20,7 @@
      "src/join.js",
      "src/min.js",
      "src/max.js",
+     "src/pow.js",
      "src/util/footer.js"
   ],
   "repository": {
@@ -27,7 +28,7 @@
     "url": "https://github.com/mechanismsjs/mech-math.git"
   },
   "keywords": [
-    "mechanisms",
+    "mechs",
     "client",
     "server",
     "library",
