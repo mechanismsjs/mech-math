@@ -1,5 +1,5 @@
 // mech-math.js
-// version: 0.1.9
+// version: 0.1.10
 // author: Eric Hosick <erichosick@gmail.com> (http://www.erichosick.com/)
 // license: MIT
 (function() {
@@ -8,7 +8,7 @@
 var root = this; // window (browser) or exports (server)
 var m = root.m || {}; // merge with previous or new module
 m._ = m._ || {}; // merge with pervious or new sub-module
-m._["version-math"] = '0.1.9'; // version set through gulp build
+m._["version-math"] = '0.1.10'; // version set through gulp build
 
 // export module for node or the browser
 if(typeof module !== 'undefined' && module.exports) {
@@ -314,10 +314,13 @@ f._r = ((null === right) || (undefined === right)) ? undefined : right;
 return f;
 };
 EqlNumF.prototype = Object.create(DualArgF.prototype, {
+	go: { enumerable: false, get: function() { return this.goBool; }},
+	goNum: { enumerable: false, get: function() { return this.goBool ? 1 : 0; }},
+	goStr: { enumerable: false, get: function() { return this.goBool ? "true" : "false"; }},
+	goArr: { enumerable: false, get: function() { return [this.goBool]; }},
   goBool: { enumerable: false, get: function() {
   	var l = (undefined === this._l) ? undefined : this._l.isMech ? this._l.goNum : this._l;
   	var r = (undefined === this._r) ? undefined : this._r.isMech ? this._r.goNum : this._r;
-
   	return (l === undefined || r === undefined) ? false : l === r;
   }}
 });
@@ -331,13 +334,16 @@ function eqlStr(left,right) {
    return f;
 }
 EqlStrF.prototype = Object.create(DualArgF.prototype, {
+	go: { enumerable: false, get: function() { return this.goBool; }},
+	goNum: { enumerable: false, get: function() { return this.goBool ? 1 : 0; }},
+	goStr: { enumerable: false, get: function() { return this.goBool ? "true" : "false"; }},
+	goArr: { enumerable: false, get: function() { return [this.goBool]; }},
 	goBool: { enumerable: false, get: function() {
   	var l = (undefined === this._l) ? undefined : this._l.isMech ? this._l.goStr : this._l;
   	var r = (undefined === this._r) ? undefined : this._r.isMech ? this._r.goStr : this._r;
 
   	return (l === undefined || r === undefined) ? false : l === r;
   }}
-
 });
 m.eqlStr = eqlStr;
 m._.EqlStrF = EqlStrF;
