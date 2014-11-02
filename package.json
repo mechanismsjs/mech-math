@@ -1,7 +1,7 @@
 {
   "name": "mech-math",
   "namesub": "math",
-  "version": "0.1.8",
+  "version": "0.1.9",
   "description": "Library of math mechs.",
   "main": "./dist/mech-math.js",
   "scripts": {
@@ -21,6 +21,9 @@
      "src/min.js",
      "src/max.js",
      "src/pow.js",
+     "src/inc.js",
+     "src/eqlNum.js",
+     "src/eqlStr.js",
      "src/util/footer.js"
   ],
   "repository": {

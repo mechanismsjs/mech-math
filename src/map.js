@@ -27,5 +27,4 @@ MapF.prototype = Object.create(Object.prototype, {
    goArr: { get: function() { return this.go; }}
 });
 m.map = map;
-m.loop = map;
 m._.MapF = MapF;

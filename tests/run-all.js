@@ -11,3 +11,5 @@ require("./shared/join.js");
 require("./shared/min.js");
 require("./shared/max.js");
 require("./shared/pow.js");
+require("./shared/eqlNum.js");
+require("./shared/eqlStr.js");

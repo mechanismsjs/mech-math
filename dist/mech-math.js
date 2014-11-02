@@ -1,5 +1,5 @@
 // mech-math.js
-// version: 0.1.8
+// version: 0.1.9
 // author: Eric Hosick <erichosick@gmail.com> (http://www.erichosick.com/)
 // license: MIT
 (function() {
@@ -8,7 +8,7 @@
 var root = this; // window (browser) or exports (server)
 var m = root.m || {}; // merge with previous or new module
 m._ = m._ || {}; // merge with pervious or new sub-module
-m._["version-math"] = '0.1.8'; // version set through gulp build
+m._["version-math"] = '0.1.9'; // version set through gulp build
 
 // export module for node or the browser
 if(typeof module !== 'undefined' && module.exports) {
@@ -208,7 +208,6 @@ MapF.prototype = Object.create(Object.prototype, {
    goArr: { get: function() { return this.go; }}
 });
 m.map = map;
-m.loop = map;
 m._.MapF = MapF;
 function JoinF(){};
 function join(array,token) {
@@ -307,5 +306,40 @@ PowF.prototype = Object.create(DualArgF.prototype, {
 });
 m.pow = pow;
 m._.PowF = PowF;
+function EqlNumF(){};
+function eqlNum(left,right) {
+var f = Object.create(EqlNumF.prototype);
+f._l = ((null === left) || (undefined === left)) ? undefined : left;
+f._r = ((null === right) || (undefined === right)) ? undefined : right;
+return f;
+};
+EqlNumF.prototype = Object.create(DualArgF.prototype, {
+  goBool: { enumerable: false, get: function() {
+  	var l = (undefined === this._l) ? undefined : this._l.isMech ? this._l.goNum : this._l;
+  	var r = (undefined === this._r) ? undefined : this._r.isMech ? this._r.goNum : this._r;
+
+  	return (l === undefined || r === undefined) ? false : l === r;
+  }}
+});
+m.eqlNum = eqlNum;
+m._.EqlNumF = EqlNumF;
+function EqlStrF(){}
+function eqlStr(left,right) {
+   var f = Object.create(EqlStrF.prototype);
+   f._l = ((null === left) || (undefined === left)) ? undefined : left;
+   f._r = ((null === right) || (undefined === right)) ? undefined : right;
+   return f;
+}
+EqlStrF.prototype = Object.create(DualArgF.prototype, {
+	goBool: { enumerable: false, get: function() {
+  	var l = (undefined === this._l) ? undefined : this._l.isMech ? this._l.goStr : this._l;
+  	var r = (undefined === this._r) ? undefined : this._r.isMech ? this._r.goStr : this._r;
+
+  	return (l === undefined || r === undefined) ? false : l === r;
+  }}
+
+});
+m.eqlStr = eqlStr;
+m._.EqlStrF = EqlStrF;
 
 }.call(this));
