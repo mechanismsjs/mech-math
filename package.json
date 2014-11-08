@@ -1,7 +1,7 @@
 {
   "name": "mech-math",
   "namesub": "math",
-  "version": "0.1.10",
+  "version": "0.1.11",
   "description": "Library of math mechs.",
   "main": "./dist/mech-math.js",
   "scripts": {
@@ -16,7 +16,6 @@
      "src/div.js",
      "src/modulus.js",
      "src/addS.js",
-     "src/map.js",
      "src/join.js",
      "src/min.js",
      "src/max.js",

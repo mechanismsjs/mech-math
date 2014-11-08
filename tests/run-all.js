@@ -6,7 +6,6 @@ require("./shared/mul.js");
 require("./shared/div.js");
 require("./shared/modulus.js");
 require("./shared/addS.js");
-require("./shared/map.js");
 require("./shared/join.js");
 require("./shared/min.js");
 require("./shared/max.js");
