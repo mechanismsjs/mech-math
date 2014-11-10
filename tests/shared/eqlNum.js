@@ -1,13 +1,13 @@
-describe("equality numeric mechanism - eqlNum", function () {
+describe("equality numeric mechanism - eqlNum", function() {
 
-	it ("should not wipeout Object prototype and be a mechanism", function() {
+	it("should not wipeout Object prototype and be a mechanism", function() {
 		var mech = m.eqlNum();
 		expect(mech).to.have.property('toString');
 		expect(m._.EqlNumF).to.not.eql(undefined);
 	});
 
-	it ("should have correct properties", function() {
-		var mech = m.eqlNum(1,2);
+	it("should have correct properties", function() {
+		var mech = m.eqlNum(1, 2);
 		expect(mech.isMech).to.be.true;
 
 		expect(mech).to.have.property('l');
@@ -17,7 +17,7 @@ describe("equality numeric mechanism - eqlNum", function () {
 		expect(mech).to.have.property('_r'); // imagined privacy
 	});
 
-	it ("should consider null and undefined as equal numbers", function() {
+	it("should consider null and undefined as equal numbers", function() {
 		var mech = m.eqlNum();
 		expect(mech.go).to.be.false;
 		expect(mech.goNum).to.equal(0);
@@ -40,7 +40,7 @@ describe("equality numeric mechanism - eqlNum", function () {
 		expect(mech3.goBool).to.be.false;
 	});
 
-	it ("should consider two equal primitive values to be equal", function() {
+	it("should consider two equal primitive values to be equal", function() {
 		var mech = m.eqlNum(3, 3);
 		expect(mech.go).to.be.true;
 		expect(mech.goNum).to.equal(1);
@@ -49,7 +49,7 @@ describe("equality numeric mechanism - eqlNum", function () {
 		expect(mech.goBool).to.be.true;
 	});
 
-	it ("should consider two unequal primitive values to be equal", function() {
+	it("should consider two unequal primitive values to be equal", function() {
 		var mech = m.eqlNum(3, 5);
 		expect(mech.go).to.be.false;
 		expect(mech.goNum).to.equal(0);
@@ -58,7 +58,7 @@ describe("equality numeric mechanism - eqlNum", function () {
 		expect(mech.goBool).to.be.false;
 	});
 
-	it ("should consider two equal string primitive values that are numeric to be equal", function() {
+	it("should consider two equal string primitive values that are numeric to be equal", function() {
 		var mech = m.eqlNum("3", "3");
 		expect(mech.go).to.be.true;
 		expect(mech.goNum).to.equal(1);
@@ -67,7 +67,7 @@ describe("equality numeric mechanism - eqlNum", function () {
 		expect(mech.goBool).to.be.true;
 	});
 
-	it ("should consider two un-equal string primitive values that are numeric to be equal", function() {
+	it("should consider two un-equal string primitive values that are numeric to be equal", function() {
 		var mech = m.eqlNum("3", "2");
 		expect(mech.go).to.be.false;
 		expect(mech.goNum).to.equal(0);
@@ -76,7 +76,7 @@ describe("equality numeric mechanism - eqlNum", function () {
 		expect(mech.goBool).to.be.false;
 	});
 
-	it ("should consider two equal mechanisms that are numeric to be equal", function() {
+	it("should consider two equal mechanisms that are numeric to be equal", function() {
 		var mech = m.eqlNum(m.num(45), m.num(45));
 		expect(mech.go).to.be.true;
 		expect(mech.goNum).to.equal(1);
@@ -85,7 +85,7 @@ describe("equality numeric mechanism - eqlNum", function () {
 		expect(mech.goBool).to.be.true;
 	});
 
-	it ("should consider two non-equal mechanisms that are numeric to be equal", function() {
+	it("should consider two non-equal mechanisms that are numeric to be equal", function() {
 		var mech = m.eqlNum(m.num(42), m.num(45));
 		expect(mech.go).to.be.false;
 		expect(mech.goNum).to.equal(0);
@@ -94,7 +94,7 @@ describe("equality numeric mechanism - eqlNum", function () {
 		expect(mech.goBool).to.be.false;
 	});
 
-	it ("should consider two equal mechanisms that are string to be equal", function() {
+	it("should consider two equal mechanisms that are string to be equal", function() {
 		var mech = m.eqlNum(m.str("41"), m.str("41"));
 		expect(mech.go).to.be.true;
 		expect(mech.goNum).to.equal(1);
@@ -103,7 +103,7 @@ describe("equality numeric mechanism - eqlNum", function () {
 		expect(mech.goBool).to.be.true;
 	});
 
-	it ("should consider two non-equal mechanisms that are string to be equal", function() {
+	it("should consider two non-equal mechanisms that are string to be equal", function() {
 		var mech = m.eqlNum(m.str("45"), m.str("41"));
 		expect(mech.go).to.be.false;
 		expect(mech.goNum).to.equal(0);
@@ -112,7 +112,7 @@ describe("equality numeric mechanism - eqlNum", function () {
 		expect(mech.goBool).to.be.false;
 	});
 
-	it ("should consider two non-equal mechanisms that are non-numeric string to be un-equal", function() {
+	it("should consider two non-equal mechanisms that are non-numeric string to be un-equal", function() {
 		var mech = m.eqlNum(m.str("fourty"), m.str("eightye"));
 		expect(mech.go).to.be.false;
 		expect(mech.goNum).to.equal(0);
@@ -121,13 +121,21 @@ describe("equality numeric mechanism - eqlNum", function () {
 		expect(mech.goBool).to.be.false;
 	});
 
-	it ("should consider NaN to be unequal (default of javascript but we may need to fix this?)", function() {
+	it("should consider NaN to be unequal (default of javascript but we may need to fix this?)", function() {
 		var mech = m.eqlNum(NaN, NaN);
 		expect(mech.go).to.be.false;
 		expect(mech.goNum).to.equal(0);
 		expect(mech.goStr).to.equal("false");
 		expect(mech.goArr).to.contain(false);
 		expect(mech.goBool).to.be.false;
+	});
+
+	it("should set _parDir of child mechanisms to parent", function() {
+		var mech = m.num(1);
+		var mech2 = m.num(2);
+		var mech3 = m.eqlNum(mech, mech2);
+		expect(mech._parDir).to.equal(mech3);
+		expect(mech2._parDir).to.equal(mech3);
 	});
 
 });
